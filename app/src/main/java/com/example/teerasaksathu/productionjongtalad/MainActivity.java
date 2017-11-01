@@ -1,20 +1,17 @@
 package com.example.teerasaksathu.productionjongtalad;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.io.StringReader;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -32,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String username;
     private String password;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,11 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRegisterPage.setOnClickListener(this);
         btnLoginPage.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
-
-
     }
 
-    private class CheckLogin extends AsyncTask<String, Void, String> {
+    private class Login extends AsyncTask<String, Void, String> {
 
         private static final String URL = "http://www.jongtalad.com/doc/phpNew/login.php";
 
@@ -89,11 +83,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(s);
             Log.d("Post", "==>" + s);
             if (s.equals("1")) {
-                Toast.makeText(MainActivity.this, "Login success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainActivity.this, LockReservation.class);
                 startActivity(intent);
             } else {
-                Toast.makeText(MainActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Username หรือ Password ผิด", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -110,12 +104,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view == btnLoginPage) {
-            username = etUsername.getText().toString().trim();
-            password = etPassword.getText().toString().trim();
-            CheckLogin checkLogin = new CheckLogin();
-            checkLogin.execute(username, password);
-
-
+            if (checkLogin()) {
+                username = etUsername.getText().toString().trim();
+                password = etPassword.getText().toString().trim();
+                Login login = new Login();
+                login.execute(username, password);
+            } else{
+                Toast.makeText(MainActivity.this, "โปรดกรอก Username และ Password", Toast.LENGTH_SHORT).show();
+            }
         } else if (view == btnRegisterPage) {
             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
             startActivity(intent);
@@ -123,6 +119,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, ForgotPasswordActivity.class);
             startActivity(intent);
         }
+    }
+
+    private boolean checkLogin() {
+        if (etUsername.length() == 0 || etPassword.length() == 0)
+            return false;
+        else
+            return true;
     }
 
 }
