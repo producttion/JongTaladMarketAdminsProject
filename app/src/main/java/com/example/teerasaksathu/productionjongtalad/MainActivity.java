@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.d("Post", "==>" + s);
             if (s.equals("1")) {
                 Toast.makeText(MainActivity.this, "Login สำเร็จ", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, LockReservation.class);
+                Intent intent = new Intent(MainActivity.this, MarketList.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
             } else {
                 Toast.makeText(MainActivity.this, "Username หรือ Password ผิด", Toast.LENGTH_SHORT).show();
