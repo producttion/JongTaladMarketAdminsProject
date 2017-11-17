@@ -1,4 +1,4 @@
-package com.example.teerasaksathu.productionjongtalad;
+package com.example.teerasaksathu.productionjongtalad.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.teerasaksathu.productionjongtalad.adapter.MarketListAdapter;
+import com.example.teerasaksathu.productionjongtalad.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

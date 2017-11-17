@@ -1,4 +1,4 @@
-package com.example.teerasaksathu.productionjongtalad;
+package com.example.teerasaksathu.productionjongtalad.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.teerasaksathu.productionjongtalad.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

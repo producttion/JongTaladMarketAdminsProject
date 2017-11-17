@@ -1,4 +1,4 @@
-package com.example.teerasaksathu.productionjongtalad;
+package com.example.teerasaksathu.productionjongtalad.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.teerasaksathu.productionjongtalad.R;
 
 import java.io.IOException;
 

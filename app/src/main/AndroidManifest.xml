@@ -11,17 +11,17 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LockReservation" />
-        <activity android:name=".MarketList" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
+        <activity android:name=".activity.LockReservation" />
+        <activity android:name=".activity.MarketList" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.ForgotPasswordActivity" />
     </application>
 
 </manifest>
