@@ -41,7 +41,6 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 
     private String marketName = "RMUTT Walking Street";
     private String dataLock;
-    private String market_id = "1";
     private String timeDate;
 
 
@@ -102,9 +101,8 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 
     private void initInstances() {
 
-         timeDate =String.valueOf(timeDate());
+        timeDate = String.valueOf(timeDate());
 //        Log.d("Daet", timeDate);
-
 
 
         setDataToTV setDataToTV = new setDataToTV();
@@ -117,37 +115,37 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
         loadProductType.execute();
 
 
-
-        etName = (EditText) findViewById(R.id.etName);
-        etPhonenumber = (EditText) findViewById(R.id.etPhonenumber);
-        btnReserve = (Button) findViewById(R.id.btnReserve);
-        spProductType = (Spinner) findViewById(R.id.spProductType);
-        spLock = (Spinner) findViewById(R.id.spLock);
-        tvDate = (TextView) findViewById(R.id.date);
+        etName = findViewById(R.id.etName);
+        etPhonenumber = findViewById(R.id.etPhonenumber);
+        btnReserve = findViewById(R.id.btnReserve);
+        spProductType = findViewById(R.id.spProductType);
+        spLock = findViewById(R.id.spLock);
+        tvDate = findViewById(R.id.date);
         tvDate.setText(timeDate);
-        tvA1 = (TextView) findViewById(R.id.tvA1);
-        tvA2 = (TextView) findViewById(R.id.tvA2);
-        tvA3 = (TextView) findViewById(R.id.tvA3);
-        tvB1 = (TextView) findViewById(R.id.tvB1);
-        tvB2 = (TextView) findViewById(R.id.tvB2);
-        tvB3 = (TextView) findViewById(R.id.tvB3);
-        tvC1 = (TextView) findViewById(R.id.tvC1);
-        tvC2 = (TextView) findViewById(R.id.tvC2);
-        tvC3 = (TextView) findViewById(R.id.tvC3);
-        tvC4 = (TextView) findViewById(R.id.tvC4);
-        tvC5 = (TextView) findViewById(R.id.tvC5);
-        tvD1 = (TextView) findViewById(R.id.tvD1);
-        tvD2 = (TextView) findViewById(R.id.tvD2);
-        tvD3 = (TextView) findViewById(R.id.tvD3);
-        tvD4 = (TextView) findViewById(R.id.tvD4);
-        tvD5 = (TextView) findViewById(R.id.tvD5);
-        tvD6 = (TextView) findViewById(R.id.tvD6);
-        tvD7 = (TextView) findViewById(R.id.tvD7);
-        tvD8 = (TextView) findViewById(R.id.tvD8);
-        tvD9 = (TextView) findViewById(R.id.tvD9);
+        tvA1 = findViewById(R.id.tvA1);
+        tvA2 = findViewById(R.id.tvA2);
+        tvA3 = findViewById(R.id.tvA3);
+        tvB1 = findViewById(R.id.tvB1);
+        tvB2 = findViewById(R.id.tvB2);
+        tvB3 = findViewById(R.id.tvB3);
+        tvC1 = findViewById(R.id.tvC1);
+        tvC2 = findViewById(R.id.tvC2);
+        tvC3 = findViewById(R.id.tvC3);
+        tvC4 = findViewById(R.id.tvC4);
+        tvC5 = findViewById(R.id.tvC5);
+        tvD1 = findViewById(R.id.tvD1);
+        tvD2 = findViewById(R.id.tvD2);
+        tvD3 = findViewById(R.id.tvD3);
+        tvD4 = findViewById(R.id.tvD4);
+        tvD5 = findViewById(R.id.tvD5);
+        tvD6 = findViewById(R.id.tvD6);
+        tvD7 = findViewById(R.id.tvD7);
+        tvD8 = findViewById(R.id.tvD8);
+        tvD9 = findViewById(R.id.tvD9);
 
 
     }
+
     @Override
     public void onClick(View view) {
         if (view == btnReserve) {
@@ -157,26 +155,18 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
                 String phonenumber = etPhonenumber.getText().toString().trim();
                 String lockName = spLock.getSelectedItem().toString().trim();
                 String productType = spProductType.getSelectedItem().toString().trim();
-//                Log.d("ooooo", name);
-//                Log.d("ooooo", phonenumber);
-//                Log.d("ooooo", marketName);
-//                Log.d("ooooo", lockName);
-//                Log.d("ooooo", productType);
-//                Log.d("ooooo", timeDate);
 
                 if (lockName.equals("None")) {
                     Toast.makeText(LockReservation.this, "Please select lock", Toast.LENGTH_LONG).show();
                 } else {
                     ReserveLock reserveLock = new ReserveLock();
-                    reserveLock.execute(name,phonenumber,marketName,lockName,productType,timeDate);
+                    reserveLock.execute(name, phonenumber, marketName, lockName, productType, timeDate);
 
                     loadLockname loadLockname = new loadLockname();
                     loadLockname.execute();
 
                     setLockStatus(spLock.getSelectedItem().toString().trim(), R.color.lockStatusOuccupied);
                 }
-
-
             }
         } else if (view == tvA1) {
             showLockStatus("A1");
@@ -330,10 +320,10 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
     private void showLockStatus(String lockName) {
         lockNameForDelete = lockName;
         loadLockInformation lockInformation = new loadLockInformation();
-        lockInformation.execute(lockName, marketName,timeDate);
+        lockInformation.execute(lockName, marketName, timeDate);
     }
 
-    private class ReserveLock extends AsyncTask<String, Void,String> {
+    private class ReserveLock extends AsyncTask<String, Void, String> {
         public static final String URL = "http://www.jongtalad.com/doc/phpNew/lock_reservation.php";
 
         @Override
@@ -343,12 +333,12 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
             RequestBody requestBody = new FormBody.Builder()
                     .add("merchantName", values[0])
                     .add("merchantPhonenumber", values[1])
-                    .add("merchantSurname","")
-                    .add("marketAdmin_username","")
+                    .add("merchantSurname", "")
+                    .add("marketAdmin_username", "")
                     .add("marketName", values[2])
                     .add("lockName", values[3])
-                    .add("productTypeName",values[4])
-                    .add("saleDate",values[5])
+                    .add("productTypeName", values[4])
+                    .add("saleDate", values[5])
                     .build();
             Request request = new Request.Builder()
                     .url(URL)
@@ -401,8 +391,8 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 
 
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        dataLock = jsonObject.getString("name");
-                        setLockStatus(dataLock, R.color.lockStatusOuccupied);
+                    dataLock = jsonObject.getString("name");
+                    setLockStatus(dataLock, R.color.lockStatusOuccupied);
 //                        Log.d("dataLock", dataLock);
 
 
@@ -430,9 +420,9 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
                 OkHttpClient okHttpClient = new OkHttpClient();
                 Request.Builder builder = new Request.Builder();
                 RequestBody requestBody = new FormBody.Builder()
-                        .add("reservationStatus","2")
-                        .add("saleDate",timeDate)
-                        .add("marketName",marketName)
+                        .add("reservationStatus", "2")
+                        .add("saleDate", timeDate)
+                        .add("marketName", marketName)
                         .build();
                 Request request = builder.url(URLstatusLock).post(requestBody).build();
                 Response response = okHttpClient.newCall(request).execute();
@@ -456,9 +446,9 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
         protected String doInBackground(Void... voids) {
             OkHttpClient okHttpClient = new OkHttpClient();
             RequestBody requestBody = new FormBody.Builder()
-                    .add("reservationStatus","1")
-                    .add("saleDate",timeDate)
-                    .add("marketName",marketName)
+                    .add("reservationStatus", "1")
+                    .add("saleDate", timeDate)
+                    .add("marketName", marketName)
                     .build();
             Request request = new Request.Builder()
                     .url(URL)
@@ -483,22 +473,20 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             String[] lockList;
-                try {
-                    JSONArray jsonArray = new JSONArray(s);
-                    lockList = new String[jsonArray.length()];
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        lockList[i] = (jsonObject.getString("name"));
-                    }
-
-                } catch (JSONException e) {
-                    lockList = new String[1];
-                    lockList[0] = "None";
-
-                    e.printStackTrace();
+            try {
+                JSONArray jsonArray = new JSONArray(s);
+                lockList = new String[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    lockList[i] = (jsonObject.getString("name"));
                 }
 
+            } catch (JSONException e) {
+                lockList = new String[1];
+                lockList[0] = "None";
 
+                e.printStackTrace();
+            }
 
 
             ArrayAdapter<String> adapter = new ArrayAdapter<>(LockReservation.this, R.layout.custom_spinner_view, lockList);
@@ -568,7 +556,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
             RequestBody requestBody = new FormBody.Builder()
                     .add("lockName", values[0])
                     .add("marketName", values[1])
-                    .add("saleDate",values[2])
+                    .add("saleDate", values[2])
                     .build();
 
             Request request = new Request.Builder()
@@ -625,7 +613,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
                             public void onClick(DialogInterface dialogInterface, int i) {
 //                                Log.d("lockNameForDelete", lockNameForDelete);
                                 cancelLockReservation cancelLockReservation = new cancelLockReservation();
-                                cancelLockReservation.execute(lockNameForDelete, marketName,timeDate);
+                                cancelLockReservation.execute(lockNameForDelete, marketName, timeDate);
 
                             }
                         })
@@ -652,7 +640,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
             RequestBody requestBody = new FormBody.Builder()
                     .add("lockName", values[0])
                     .add("marketName", values[1])
-                    .add("saleDate",values[2])
+                    .add("saleDate", values[2])
                     .build();
 
             Request request = new Request.Builder()
@@ -684,13 +672,13 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 
     private Date timeDate() {
 
-        long millis=System.currentTimeMillis();
-        java.sql.Date date=new java.sql.Date(millis);
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
         return date;
 
     }
 
-    }
+}
 
 
 
