@@ -20,17 +20,16 @@ import com.squareup.picasso.Picasso;
 public class MarketListAdapter extends BaseAdapter {
 
 
-
     private Context ojdContext;
     private String[] nameMarket;
-    private String[] URLimage = {""};
+    private String[] imageUrl;
     private String[] marketAddress;
 
 
-    public MarketListAdapter(Context ojdContext, String[] nameMarket, String[] URLimage , String[] marketAddress) {
+    public MarketListAdapter(Context ojdContext, String[] nameMarket, String[] imageUrl, String[] marketAddress) {
         this.ojdContext = ojdContext;
         this.nameMarket = nameMarket;
-        this.URLimage = URLimage;
+        this.imageUrl = imageUrl;
         this.marketAddress = marketAddress;
 
     }
@@ -57,7 +56,6 @@ public class MarketListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
 
-
         LayoutInflater layoutInflater = (LayoutInflater) ojdContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View ojdView = layoutInflater.inflate(R.layout.card_actvity, viewGroup, false);
 
@@ -68,11 +66,21 @@ public class MarketListAdapter extends BaseAdapter {
         tvAddress.setText(marketAddress[i]);
 
         ImageView imageView = ojdView.findViewById(R.id.imageView);
-        Log.d("maxz", URLimage[i]);
+        Log.d("maxz", imageUrl[i]);
 //        Picasso.with(ojdView.getContext()).load(URLimage[i]).into(imageView);
-        Picasso.with(ojdView.getContext()).load(R.drawable.mock_market).into(imageView);
-//
 
+
+        try {
+            Picasso.with(viewGroup.getContext())
+                    .load(imageUrl[i])
+                    .placeholder(R.drawable.mock_market)
+                    .into(imageView);
+        } catch (IllegalArgumentException e) {
+            Picasso.with(viewGroup.getContext())
+                    .load(R.drawable.mock_market)
+                    .into(imageView);
+        }
+//
 
 
         return ojdView;

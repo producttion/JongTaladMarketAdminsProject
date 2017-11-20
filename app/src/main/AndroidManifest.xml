@@ -3,6 +3,8 @@
     package="com.example.teerasaksathu.productionjongtalad">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,17 +13,16 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LockReservation" />
-        <activity android:name=".activity.MarketList" />
+        <activity android:name=".activity.LockReservationActivity" />
         <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.ForgotPasswordActivity" />
+        <activity android:name=".activity.MainActivity"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,14 @@
-package com.example.teerasaksathu.productionjongtalad.activity;
+package com.example.teerasaksathu.productionjongtalad.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +31,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class LockReservation extends AppCompatActivity implements View.OnClickListener {
 
+public class LockReservationFragment extends Fragment implements View.OnClickListener {
 
     private Button btnReserve;
     private EditText etName;
@@ -69,12 +71,67 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
     private TextView tvDate;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lock_reservation);
+    public LockReservationFragment() {
+        super();
+    }
 
-        initInstances();
+    public static LockReservationFragment newInstance() {
+        LockReservationFragment fragment = new LockReservationFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_lock_reservation, container, false);
+        initInstances(rootView);
+        return rootView;
+    }
+
+    private void initInstances(View rootView) {
+        // Init 'View' instance(s) with rootView.findViewById here
+
+        timeDate = String.valueOf(timeDate());
+
+
+        setDataToTV setDataToTV = new setDataToTV();
+        setDataToTV.execute();
+
+        loadLockname loadLockname = new loadLockname();
+        loadLockname.execute();
+
+        loadProductType loadProductType = new loadProductType();
+        loadProductType.execute();
+
+        etName = rootView.findViewById(R.id.etName);
+        etPhonenumber = rootView.findViewById(R.id.etPhonenumber);
+        btnReserve = rootView.findViewById(R.id.btnReserve);
+        spProductType = rootView.findViewById(R.id.spProductType);
+        spLock = rootView.findViewById(R.id.spLock);
+        tvDate = rootView.findViewById(R.id.date);
+        tvDate.setText(timeDate);
+        tvA1 = rootView.findViewById(R.id.tvA1);
+        tvA2 = rootView.findViewById(R.id.tvA2);
+        tvA3 = rootView.findViewById(R.id.tvA3);
+        tvB1 = rootView.findViewById(R.id.tvB1);
+        tvB2 = rootView.findViewById(R.id.tvB2);
+        tvB3 = rootView.findViewById(R.id.tvB3);
+        tvC1 = rootView.findViewById(R.id.tvC1);
+        tvC2 = rootView.findViewById(R.id.tvC2);
+        tvC3 = rootView.findViewById(R.id.tvC3);
+        tvC4 = rootView.findViewById(R.id.tvC4);
+        tvC5 = rootView.findViewById(R.id.tvC5);
+        tvD1 = rootView.findViewById(R.id.tvD1);
+        tvD2 = rootView.findViewById(R.id.tvD2);
+        tvD3 = rootView.findViewById(R.id.tvD3);
+        tvD4 = rootView.findViewById(R.id.tvD4);
+        tvD5 = rootView.findViewById(R.id.tvD5);
+        tvD6 = rootView.findViewById(R.id.tvD6);
+        tvD7 = rootView.findViewById(R.id.tvD7);
+        tvD8 = rootView.findViewById(R.id.tvD8);
+        tvD9 = rootView.findViewById(R.id.tvD9);
 
         tvA1.setOnClickListener(this);
         tvA2.setOnClickListener(this);
@@ -98,55 +155,38 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
         tvD9.setOnClickListener(this);
         btnReserve.setOnClickListener(this);
 
-
     }
 
-    private void initInstances() {
-
-        timeDate = String.valueOf(timeDate());
-//        Log.d("Daet", timeDate);
-
-
-        setDataToTV setDataToTV = new setDataToTV();
-        setDataToTV.execute();
-
-        loadLockname loadLockname = new loadLockname();
-        loadLockname.execute();
-
-        loadProductType loadProductType = new loadProductType();
-        loadProductType.execute();
-
-
-        etName = findViewById(R.id.etName);
-        etPhonenumber = findViewById(R.id.etPhonenumber);
-        btnReserve = findViewById(R.id.btnReserve);
-        spProductType = findViewById(R.id.spProductType);
-        spLock = findViewById(R.id.spLock);
-        tvDate = findViewById(R.id.date);
-        tvDate.setText(timeDate);
-        tvA1 = findViewById(R.id.tvA1);
-        tvA2 = findViewById(R.id.tvA2);
-        tvA3 = findViewById(R.id.tvA3);
-        tvB1 = findViewById(R.id.tvB1);
-        tvB2 = findViewById(R.id.tvB2);
-        tvB3 = findViewById(R.id.tvB3);
-        tvC1 = findViewById(R.id.tvC1);
-        tvC2 = findViewById(R.id.tvC2);
-        tvC3 = findViewById(R.id.tvC3);
-        tvC4 = findViewById(R.id.tvC4);
-        tvC5 = findViewById(R.id.tvC5);
-        tvD1 = findViewById(R.id.tvD1);
-        tvD2 = findViewById(R.id.tvD2);
-        tvD3 = findViewById(R.id.tvD3);
-        tvD4 = findViewById(R.id.tvD4);
-        tvD5 = findViewById(R.id.tvD5);
-        tvD6 = findViewById(R.id.tvD6);
-        tvD7 = findViewById(R.id.tvD7);
-        tvD8 = findViewById(R.id.tvD8);
-        tvD9 = findViewById(R.id.tvD9);
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    /*
+     * Save Instance State Here
+     */
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save Instance State here
+    }
+
+    /*
+     * Restore Instance State Here
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore Instance State here
+        }
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -159,7 +199,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
                 String productType = spProductType.getSelectedItem().toString().trim();
 
                 if (lockName.equals("None")) {
-                    Toast.makeText(LockReservation.this, "Please select lock", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Please select lock", Toast.LENGTH_LONG).show();
                 } else {
                     ReserveLock reserveLock = new ReserveLock();
                     reserveLock.execute(name, phonenumber, marketName, lockName, productType, timeDate);
@@ -290,7 +330,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 //        }
 
         if (etPhonenumber.getText().length() < 10) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LockReservation.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก")
                     .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
@@ -303,7 +343,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
             return false;
         }
         if (count > 0) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(LockReservation.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage("โปรดกรอกข้อมูลให้ครบทุกช่อง")
                     .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         @Override
@@ -366,11 +406,11 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 //            Log.d("onPostSS", s);
             if (s.equals("1")) {
 
-                Toast.makeText(LockReservation.this, "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
                 etName.setText("");
                 etPhonenumber.setText("");
             } else {
-                Toast.makeText(LockReservation.this, "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "เกิดข้อผิดพลาด", Toast.LENGTH_LONG).show();
 
             }
         }
@@ -491,7 +531,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
             }
 
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(LockReservation.this, R.layout.custom_spinner_view, lockList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.custom_spinner_view, lockList);
             adapter.setDropDownViewResource(R.layout.custom_spinner_drop_down);
             spLock.setAdapter(adapter);
         }
@@ -541,7 +581,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
                 e.printStackTrace();
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(LockReservation.this, R.layout.custom_spinner_view, productTypeList);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), R.layout.custom_spinner_view, productTypeList);
             adapter.setDropDownViewResource(R.layout.custom_spinner_drop_down);
             spProductType.setAdapter(adapter);
         }
@@ -604,7 +644,7 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
 //                Log.d("Error -->", e.getMessage());
             }
             if (lockName != null) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(LockReservation.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("รายละเอียดล็อค")
                         .setMessage(lockName + "\n" +
                                 name + " " +
@@ -679,8 +719,4 @@ public class LockReservation extends AppCompatActivity implements View.OnClickLi
         return date;
 
     }
-
 }
-
-
-

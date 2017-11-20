@@ -16,4 +16,6 @@
     </string>
     <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
     <string name="title_activity_market_list">MarketListActivity</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
 </resources>
