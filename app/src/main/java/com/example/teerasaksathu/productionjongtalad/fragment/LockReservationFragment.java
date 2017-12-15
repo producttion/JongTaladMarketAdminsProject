@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.teerasaksathu.productionjongtalad.R;
+import com.example.teerasaksathu.productionjongtalad.fragment.Dialog.LockReservedDialogFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -405,8 +406,8 @@ public class LockReservationFragment extends Fragment implements View.OnClickLis
             super.onPostExecute(s);
 //            Log.d("onPostSS", s);
             if (s.equals("1")) {
-
-                Toast.makeText(getActivity(), "จองล็อคสำเร็จ", Toast.LENGTH_SHORT).show();
+                LockReservedDialogFragment lockReservedDialogFragment = new LockReservedDialogFragment();
+                lockReservedDialogFragment.show(getFragmentManager(), "lockReservedDialogFragment");
                 etName.setText("");
                 etPhonenumber.setText("");
             } else {

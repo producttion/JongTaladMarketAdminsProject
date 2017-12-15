@@ -18,4 +18,6 @@
     <string name="title_activity_market_list">MarketListActivity</string>
     <string name="open_drawer">Open Drawer</string>
     <string name="close_drawer">Close Drawer</string>
+    <string name="dialog_lock_reserved">จองล็อคสำเร็จ</string>
+    <string name="ok">ok</string>
 </resources>
